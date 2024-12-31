@@ -21,6 +21,10 @@ body {
 
 .stats-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 30px lightblue;
 }
 
 .stats-card {
@@ -46,9 +50,12 @@ body {
     width: 100%;
     border-radius: 5px;
     box-shadow: 0 0 10px #FFFFFF;
+    
 }
 
 .game-card {
+    display: flex;
+    flex-direction: column;
     background-color: #FFFFFF;
     padding: 1%;
     margin: 1%;
