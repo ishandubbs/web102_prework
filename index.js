@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // create a string that explains the number of unfunded games using the ternary operator
     const displayMessage = `A total of $${totalRaised.toLocaleString()} has been raised for ${totalGames} game${totalGames !== 1 ? "s" : ""}. 
-    There ${unfundedGamesCount === 1 ? "is" : "are"} currently ${unfundedGamesCount} unfunded game${unfundedGamesCount !== 1 ? "s" : ""}. We need your help to fund these games.`;
+    There ${UnfundedGamesCount === 1 ? "is" : "are"} currently ${UnfundedGamesCount} unfunded game${UnfundedGamesCount !== 1 ? "s" : ""}. We need your help to fund these games.`;
 
     console.log(displayMessage);
 
@@ -166,8 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
      * Challenge 7: Select & display the top 2 games
      * Skills used: spread operator, destructuring, template literals, sort 
      */
-    const sortedGames =  GAMES_JSON.sort( (item1, item2) => item2.pledged - item1.pledged);
-    const [firstGame, secondGame, ...remainingGames] = sortedGames;
+    console.log(GAMES_JSON);
+    const sortedGames =  [...GAMES_JSON].sort( (item1, item2) => item2.pledged - item1.pledged);
+    console.log("Sorted Games:", sortedGames);
+
+    const [firstGame, secondGame] = sortedGames;
+    console.log("First Game:", firstGame);
+    console.log("Second Game:", secondGame);
 
     // use destructuring and the spread operator to grab the first and second games
     const firstGameContainer = document.getElementById("first-game");
@@ -175,16 +180,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // create a new element to hold the name of the top pledge game, then append it to the correct element
     if (firstGameContainer && secondGameContainer) {
+        firstGameContainer.style.display = "block";
+        secondGameContainer.style.display = "block";
+
         const firstGameElement = document.createElement("p");
         const secondGameElement = document.createElement("p");
 
-        firstGameElement.textContent = firstGame.name;
-        secondGameElement.textContent = secondGame.name;
+        firstGameElement.textContent = firstGame?.name || "No name available";
+        secondGameElement.textContent = secondGame?.name || "No name available";
 
         firstGameContainer.appendChild(firstGameElement);
 
         // do the same for the runner up item
         secondGameContainer.appendChild(secondGameElement);
+    } else {
+        console.error("Game containers not found in the DOM.");
     }
 
+    console.log(firstGame?.name || "No name available");
+    console.log(secondGame?.name || "No name available");
 });
